@@ -227,6 +227,7 @@ macro_rules! implement_common {
                 self.capacity() - self.count_ones()
             }
 
+            #[cfg(feature = "std")]
             pub fn leading_zeros(self) -> u32 {
                 let diff = self.storage_bit_size() - self.capacity();
                 self.mask().0.leading_zeros() - diff
@@ -236,6 +237,7 @@ macro_rules! implement_common {
                 self.mask().0.trailing_zeros()
             }
 
+            #[cfg(feature = "std")]
             pub fn reverse_bits(self) -> Self {
                 let bit_size = self.storage_bit_size();
                 let mask = self.mask().0;
