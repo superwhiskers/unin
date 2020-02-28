@@ -1,4 +1,4 @@
-use *;
+use super::*;
 
 // Only implement if $from can be converted into $name lossless
 macro_rules! implement_from {
