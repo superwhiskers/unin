@@ -7,8 +7,12 @@ rust:
   
 env:
   - FLAGS="--no-default-features"
-  - FLAGS="--features std"
   - FLAGS="--no-default-features --features num"
-  - FLAGS="--features std --features num"
+  - FLAGS="--no-default-features --features use_serde"
+  - FLAGS="--features std"
+  - FLAGS="--features num"
+  - FLAGS="--features use_serde"
+  - FLAGS="--features std --features num --features use_serde"
+  - FLAGS="--features std --features use_serde"
 
 script: cargo test $FLAGS
