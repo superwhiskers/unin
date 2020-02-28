@@ -1,6 +1,6 @@
-//! # uX - non-standard-width integers types
+//! # numX - non-standard-width integers types
 //!
-//! When non-standard-width integers is required in an applications, the norm is to use a larger container and make sure the value is within range after manipulation. uX aims to take care of this once and for all by:
+//! When non-standard-width integers is required in an applications, the norm is to use a larger container and make sure the value is within range after manipulation. numX aims to take care of this once and for all by:
 //!
 //! - Providing `u1`-`u127` and `i1`-`i127` types that should behave as similar as possible to the built in rust types
 //!     - The methods of the defined types are the same as for the built in types (far from all is implemented at this point but fill out an issue or create a PR if something essential for you is missing)
@@ -62,8 +62,6 @@ use lib::core::fmt::{
     Octal,
     Binary,
 };
-
-use std::mem;
 
 macro_rules! define_unsigned {
     ($name:ident, $bits:expr, $type:ident) => {define_unsigned!(#[doc=""], $name, $bits, $type);};
@@ -142,7 +140,7 @@ macro_rules! implement_common {
             /// Basic usage:
             ///
             /// ```
-            /// use ux::*;
+            /// use numx::*;
             ///
             /// assert_eq!(u31::new(64), u31::from(64u8));
             ///
@@ -164,7 +162,7 @@ macro_rules! implement_common {
             /// Basic usage:
             ///
             /// ```
-            /// use ux::*;
+            /// use numx::*;
             ///
             /// assert_eq!(i5::MIN.wrapping_sub(i5::new(1)), i5::MAX);
             ///
@@ -185,7 +183,7 @@ macro_rules! implement_common {
             /// Basic usage:
             ///
             /// ```
-            /// use ux::*;
+            /// use numx::*;
             ///
             /// assert_eq!(i5::MAX.wrapping_add(i5::new(1)), i5::MIN);
             ///
@@ -203,7 +201,9 @@ macro_rules! implement_common {
             ///
             /// Bit size of the backing type
             ///
+            #[cfg(feature = "std")]
             fn storage_bit_size(self) -> u32 {
+                use std::mem;
                 (mem::size_of::<$name>() as u32) * 8
             }
 
