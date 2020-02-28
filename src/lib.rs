@@ -13,6 +13,8 @@
 
 #[macro_use]
 extern crate cfg_if;
+#[cfg(feature="num")]
+extern crate num_traits;
 
 mod lib {
     pub mod core {
@@ -488,9 +490,40 @@ macro_rules! implement_common {
             }
         }
 
+        #[cfg(num)]
+        impl num_traits::Bounded for $name {
+            fn min_value() -> $name {
+                $name::MIN
+            }
+            fn max_value() -> $name {
+                $name::MAX
+            }
+        }
 
+        #[cfg(num)]
+        impl num_traits::Zero for $name {
+            fn zero() -> $name {
+                $name(0)
+            }
 
+            fn is_zero(&self) -> bool {
+                self.mask().0 == 0
+            }
+        }
 
+        #[cfg(num)]
+        impl num_traits::WrappingAdd for $name {
+            fn wrapping_add(&self, rhs: &$name) -> $name {
+                <$name>::wrapping_add(*self, *rhs)
+            }
+        }
+
+        #[cfg(num)]
+        impl num_traits::WrappingSub for $name {
+            fn wrapping_sub(&self, rhs: &$name) -> $name {
+                <$name>::wrapping_sub(*self, *rhs)
+            }
+        }
     };
 }
 
