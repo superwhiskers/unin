@@ -7,7 +7,7 @@ description = "Implement the following non standard integers: u2, u3, u4, u5, u6
 
 license = "Apache-2.0/MIT"
 readme = "README.md"
-repository = "https://github.com/kjetilkjeka/uX.git"
+repository = "https://github.com/AnyTimeTraveler/numX.git"
 
 
 keywords = ["integer", "unaligned", "misaligned"]
