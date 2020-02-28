@@ -12,6 +12,22 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Fixed
 ### Security
 
+## [0.1.3] - 2020-02-28
+
+### Added
+ - Added support for `serde` by serializing into the next bigger container.
+ - Added all possible conversions to `isize` and `usize` for the target architecture.
+ - Added implementations of some `num-traits`.
+ - Added `capacity` function.
+ - Added `rotate_left` function.
+ - Added `rotate_right` function.
+ - Added `count_ones` function.
+ - Added `count_zeros` function.
+ - Added `leading_zeros` function.
+ - Added `trailing_zeros` function.
+ - Added `reverse_bits` function.
+ - Added `is_power_of_two` function.
+
 ## [0.1.3] - 2018-10-29
 ### Added
  - Added `i1` and `u1` types.
