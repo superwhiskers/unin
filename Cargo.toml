@@ -1,5 +1,5 @@
 [package]
-name = "numx"
+name = "num_x"
 version = "0.2.2"
 authors = ["Kjetil Kjeka <kjetilkjeka@gmail.com>", "Simon Struck <simonstruck70@gmail.com>"]
 

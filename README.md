@@ -1,9 +1,11 @@
-# numX [![Build Status](https://travis-ci.org/AnyTimeTraveler/numX.svg?branch=master)](https://travis-ci.org/AnyTimeTraveler/numX) [![Crates.io](https://img.shields.io/crates/v/numx.svg)](https://crates.io/crates/numx)
+# numX [![Build Status](https://travis-ci.org/AnyTimeTraveler/numX.svg?branch=master)](https://travis-ci.org/AnyTimeTraveler/numX) [![Crates.io](https://img.shields.io/crates/v/num_x.svg)](https://crates.io/crates/num_x)
 
 > Non standard integer types like `u122`, `u9`, `i67`, `u10`, `u63`, `i7`, `i9` etc
 
 
 ```rust
+use num_x::{u2, u3, u4, u5};
+
 struct Packet {
     header: u3,
     timestamp: u5,
