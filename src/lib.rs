@@ -173,6 +173,8 @@ macro_rules! implement_common {
                 $name(self.0.wrapping_sub(rhs.0)).mask()
             }
 
+            // TODO: Change doctests to be not just the same test for all, but also be generated from macros?
+
             /// Wrapping (modular) addition. Computes `self + other`,
             /// wrapping around at the boundary of the type.
             ///
@@ -938,8 +940,8 @@ mod tests {
         assert_eq!(u5(1) - u5(1), u5(0));
         assert_eq!(u5(3) - u5(2), u5(1));
 
-        assert_eq!(i1(-1) - i1(-1), i1(0));
-        assert_eq!(i7::MIN - i7::MIN, i7(0));
+        assert_eq!(i1(-1) - i1(-1) , i1(0));
+        assert_eq!(i7::MIN - i7::MIN , i7(0));
         assert_eq!(i7(4) - i7(-3), i7(7));
         assert_eq!(i7(-4) - i7(3), i7(-7));
         assert_eq!(i7(-3) - i7(-20), i7(17));
@@ -1089,77 +1091,4 @@ mod tests {
         assert_eq!(!u7(56), u7(71));
     }
 
-    const A: u12 = u12(0b000000101100);
-    const B: u12 = u12(0b000000100001);
-    const C: u12 = u12(0b000001111001);
-
-    #[test]
-    fn test_count_ones() {
-        assert!(A.count_ones() == 3);
-        assert!(B.count_ones() == 2);
-        assert!(C.count_ones() == 5);
-    }
-
-    #[test]
-    fn test_count_zeros() {
-        assert_eq!(A.count_zeros(), A.capacity() - 3);
-        assert_eq!(B.count_zeros(), B.capacity() - 2);
-        assert_eq!(C.count_zeros(), C.capacity() - 5);
-    }
-
-    #[test]
-    fn test_capacity() {
-        assert_eq!(A.count_zeros() + A.count_ones(), A.capacity());
-        assert_eq!(B.count_zeros() + B.count_ones(), B.capacity());
-        assert_eq!(C.count_zeros() + C.count_ones(), C.capacity());
-    }
-
-    #[test]
-    fn test_reverse_bits() {
-        let exp_a: u12 = u12::new(0b001101000000);
-        let exp_b: u12 = u12::new(0b100001000000);
-        let exp_c: u12 = u12::new(0b100111100000);
-
-        assert_eq!(A.reverse_bits(), exp_a);
-        assert_eq!(B.reverse_bits(), exp_b);
-        assert_eq!(C.reverse_bits(), exp_c);
-    }
-
-    #[test]
-    fn test_leading_zeros() {
-        assert_eq!(A.leading_zeros(), 6);
-        assert_eq!(B.leading_zeros(), 6);
-        assert_eq!(C.leading_zeros(), 5);
-    }
-
-    #[test]
-    fn test_trailing_zeros() {
-        assert_eq!(A.trailing_zeros(), 2);
-        assert_eq!(B.trailing_zeros(), 0);
-        assert_eq!(C.trailing_zeros(), 0);
-    }
-
-    #[test]
-    fn test_rotate() {
-        assert_eq!(A.rotate_left(6).rotate_right(2).rotate_right(4), A);
-        assert_eq!(B.rotate_left(3).rotate_left(2).rotate_right(5), B);
-        assert_eq!(C.rotate_left(6).rotate_right(2).rotate_right(4), C);
-
-        // Rotating by 0 should have no effect
-        assert_eq!(A.rotate_left(0), A);
-        assert_eq!(B.rotate_left(0), B);
-        assert_eq!(C.rotate_left(0), C);
-
-        // Rotating by a multiple of word size should also have no effect
-        assert_eq!(A.rotate_left(12), A);
-        assert_eq!(B.rotate_left(12), B);
-        assert_eq!(C.rotate_left(12), C);
-    }
-
-    #[test]
-    fn test_is_power_of_two() {
-        let a: u12 = u12::new(0b0000001000);
-        assert!(a.is_power_of_two());
-        assert!(!A.is_power_of_two());
-    }
 }
