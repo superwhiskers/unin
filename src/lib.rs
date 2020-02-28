@@ -11,13 +11,14 @@
 
 #![cfg_attr(not(feature="std"), no_std)]
 
-#[macro_use] extern crate cfg_if;
+#[macro_use]
+extern crate cfg_if;
 
 mod lib {
     pub mod core {
-        #[cfg(feature="std")]
+        #[cfg(feature = "std")]
         pub use std::*;
-        #[cfg(not(feature="std"))]
+        #[cfg(not(feature = "std"))]
         pub use core::*;
     }
 }
@@ -849,15 +850,21 @@ mod tests {
 
     #[test]
     #[should_panic]
-    fn test_add_overflow_u127() { let _s = u127::MAX + u127(1); }
+    fn test_add_overflow_u127() {
+        let _s = u127::MAX + u127(1);
+    }
 
     #[test]
     #[should_panic]
-    fn test_add_overflow_i96() { let _s = i96::MAX + i96(100); }
+    fn test_add_overflow_i96() {
+        let _s = i96::MAX + i96(100);
+    }
 
     #[test]
     #[should_panic]
-    fn test_add_underflow_i96() { let _s = i96::MIN + i96(-100); }
+    fn test_add_underflow_i96() {
+        let _s = i96::MIN + i96(-100);
+    }
 
     #[test]
     #[should_panic]
@@ -898,8 +905,8 @@ mod tests {
         assert_eq!(u5(1) - u5(1), u5(0));
         assert_eq!(u5(3) - u5(2), u5(1));
 
-        assert_eq!(i1(-1) - i1(-1) , i1(0));
-        assert_eq!(i7::MIN - i7::MIN , i7(0));
+        assert_eq!(i1(-1) - i1(-1), i1(0));
+        assert_eq!(i7::MIN - i7::MIN, i7(0));
         assert_eq!(i7(4) - i7(-3), i7(7));
         assert_eq!(i7(-4) - i7(3), i7(-7));
         assert_eq!(i7(-3) - i7(-20), i7(17));

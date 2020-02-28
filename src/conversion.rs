@@ -86,7 +86,7 @@ cfg_if! {
     // Rust follows the C99 standard, which says that the minimum target pointer width (usize) is 16 bits.
     // Thus, `usize` natively implements `From` for both `u8` and `u16`.
     if #[cfg(target_pointer_width = "16")] {
-        implement_into!([u2, u3, u4, u5, u6, u7], usize);        
+        implement_into!([u2, u3, u4, u5, u6, u7], usize);
         implement_into!([u9, u10, u11, u12, u13, u14, u15], usize);
         implement_from_with_inner!([u17, u18, u19, u20, u21, u22, u23, u24], usize, u32);
         implement_from_with_inner!([u25, u26, u27, u28, u29, u30, u31], usize, u32);
@@ -96,7 +96,7 @@ cfg_if! {
         implement_from_with_inner!([u57, u58, u59, u60, u61, u62, u63], usize, u64);
     }
     else if #[cfg(target_pointer_width = "32")] {
-        implement_into!([u2, u3, u4, u5, u6, u7], usize);        
+        implement_into!([u2, u3, u4, u5, u6, u7], usize);
         implement_into!([u9, u10, u11, u12, u13, u14, u15], usize);
         implement_into!([u17, u18, u19, u20, u21, u22, u23, u24], usize);
         implement_into!([u25, u26, u27, u28, u29, u30, u31], usize);
@@ -106,7 +106,7 @@ cfg_if! {
         implement_from_with_inner!([u57, u58, u59, u60, u61, u62, u63], usize, u64);
     }
     else if #[cfg(target_pointer_width = "64")] {
-        implement_into!([u2, u3, u4, u5, u6, u7], usize);        
+        implement_into!([u2, u3, u4, u5, u6, u7], usize);
         implement_into!([u9, u10, u11, u12, u13, u14, u15], usize);
         implement_into!([u17, u18, u19, u20, u21, u22, u23, u24], usize);
         implement_into!([u25, u26, u27, u28, u29, u30, u31], usize);
