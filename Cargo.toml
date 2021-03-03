@@ -28,6 +28,7 @@ optional = true
 
 [features]
 default = ["std"]
+nightly = []
 std = []
 num = ["num-traits"]
 use_serde = ["serde"]

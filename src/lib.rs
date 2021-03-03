@@ -10,6 +10,7 @@
 
 
 #![cfg_attr(not(feature="std"), no_std)]
+#![cfg_attr(feature = "nightly", feature(const_panic))]
 
 #[macro_use]
 extern crate cfg_if;
@@ -76,7 +77,7 @@ macro_rules! define_unsigned {
             pub const MAX: Self = $name(((1 as $type) << $bits) -1 );
             pub const MIN: Self = $name(0);
 
-            fn mask(self) -> Self {
+            const fn mask(self) -> Self {
                 $name(self.0 & ( ((1 as $type) << $bits).overflowing_sub(1).0))
             }
         }
@@ -100,7 +101,7 @@ macro_rules! define_signed {
             pub const MAX: Self = $name(((1 as $type) << ($bits - 1)) - 1);
             pub const MIN: Self = $name(-((1 as $type) << ($bits - 1)));
 
-            fn mask(self) -> Self {
+            const fn mask(self) -> Self {
                 if ( self.0 & (1<<($bits-1)) ) == 0 {
                     $name(self.0 & ( ((1 as $type) << $bits).overflowing_sub(1).0))
                 } else {
@@ -118,15 +119,15 @@ macro_rules! implement_common {
     ($name:ident, $bits:expr, $type:ident) => {
         impl $name {
             /// Returns the smallest value that can be represented by this integer type.
-            pub fn min_value() -> Self {
+            pub const fn min_value() -> Self {
                 $name::MIN
             }
             /// Returns the largest value that can be represented by this integer type.
-            pub fn max_value() -> Self {
+            pub const fn max_value() -> Self {
                 $name::MAX
             }
 
-            fn is_valid(value: $type) -> bool {
+            const fn is_valid(value: $type) -> bool {
                 value <= $name::MAX.0 && value >= $name::MIN.0
             }
 
@@ -149,6 +150,13 @@ macro_rules! implement_common {
             /// # Panic
             ///
             /// This function will panic if `value` is not representable by this type
+            #[cfg(feature = "nightly")]
+            pub const fn new(value: $type) -> Self {
+                assert!(Self::is_valid(value));
+                $name(value)
+            }
+
+            #[cfg(not(feature = "nightly"))]
             pub fn new(value: $type) -> Self {
                 assert!(Self::is_valid(value));
                 $name(value)
@@ -169,7 +177,7 @@ macro_rules! implement_common {
             /// assert_eq!(i5::new(-10).wrapping_sub(i5::new(5)), i5::new(-15));
             /// assert_eq!(i5::new(-15).wrapping_sub(i5::new(5)), i5::new(12));
             /// ```
-            pub fn wrapping_sub(self, rhs: Self) -> Self {
+            pub const fn wrapping_sub(self, rhs: Self) -> Self {
                 $name(self.0.wrapping_sub(rhs.0)).mask()
             }
 
@@ -190,11 +198,11 @@ macro_rules! implement_common {
             /// assert_eq!(i5::new(10).wrapping_add(i5::new(5)), i5::new(15));
             /// assert_eq!(i5::new(15).wrapping_add(i5::new(5)), i5::new(-12));
             /// ```
-            pub fn wrapping_add(self, rhs: Self) -> Self {
+            pub const fn wrapping_add(self, rhs: Self) -> Self {
                 $name(self.0.wrapping_add(rhs.0)).mask()
             }
 
-            pub fn capacity(self) -> u32 {
+            pub const fn capacity(self) -> u32 {
                 $bits
             }
 
@@ -202,49 +210,49 @@ macro_rules! implement_common {
             /// Bit size of the backing type
             ///
             #[cfg(feature = "std")]
-            fn storage_bit_size(self) -> u32 {
+            const fn storage_bit_size(self) -> u32 {
                 use std::mem;
                 (mem::size_of::<$name>() as u32) * 8
             }
 
-            pub fn rotate_left(self, n: u32) -> Self {
+            pub const fn rotate_left(self, n: u32) -> Self {
                 let shift = n % $bits;
                 let mask = self.mask().0;
                 $name((mask << shift) | (mask >> ($bits - shift)))
             }
 
-            pub fn rotate_right(self, n: u32) -> Self {
+            pub const fn rotate_right(self, n: u32) -> Self {
                 let shift = n % $bits;
                 let mask = self.mask().0;
                 $name((mask >> shift) | (mask << ($bits - shift)))
             }
 
-            pub fn count_ones(self) -> u32 {
+            pub const fn count_ones(self) -> u32 {
                 self.mask().0.count_ones()
             }
 
-            pub fn count_zeros(self) -> u32 {
+            pub const fn count_zeros(self) -> u32 {
                 self.capacity() - self.count_ones()
             }
 
             #[cfg(feature = "std")]
-            pub fn leading_zeros(self) -> u32 {
+            pub const fn leading_zeros(self) -> u32 {
                 let diff = self.storage_bit_size() - self.capacity();
                 self.mask().0.leading_zeros() - diff
             }
 
-            pub fn trailing_zeros(self) -> u32 {
+            pub const fn trailing_zeros(self) -> u32 {
                 self.mask().0.trailing_zeros()
             }
 
             #[cfg(feature = "std")]
-            pub fn reverse_bits(self) -> Self {
+            pub const fn reverse_bits(self) -> Self {
                 let bit_size = self.storage_bit_size();
                 let mask = self.mask().0;
                 $name(mask.reverse_bits() >> (bit_size - $bits))
             }
 
-            pub fn is_power_of_two(self) -> bool {
+            pub const fn is_power_of_two(self) -> bool {
                 self.count_ones() == 1
             }
         }
