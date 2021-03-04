@@ -408,7 +408,7 @@ macro_rules! num_convert {
     ($name:ident) => {
         macro_rules! from_int {
             ($method:ident, $ty:ident) => {
-                const fn $method(n: $ty) -> Option<$name> {
+                fn $method(n: $ty) -> Option<$name> {
                     let v = num_traits::cast::NumCast::from(n)?;
                     if v <= $name::MAX.0 && v >= $name::MIN.0 {
                         Some($name(v))
@@ -420,7 +420,7 @@ macro_rules! num_convert {
         }
         macro_rules! to_int {
             ($method:ident, $ty:ident) => {
-                const fn $method(&self) -> Option<$ty> {
+                fn $method(&self) -> Option<$ty> {
                     (self.mask().0).$method()
                 }
             }
