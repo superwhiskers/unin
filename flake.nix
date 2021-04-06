@@ -1,5 +1,5 @@
 {
-  description = "development shell for numX";
+  description = "development shell for unin";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs";

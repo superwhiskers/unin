@@ -1,20 +1,14 @@
 [package]
-name = "num_x"
-version = "0.2.2"
-authors = ["Kjetil Kjeka <kjetilkjeka@gmail.com>", "Simon Struck <simonstruck70@gmail.com>"]
-
-description = "Implement the following non standard integers: u1, u2, u3, u4, u5, u6, u7, u9, u10, u11, u12, u13, u14, u15, u17, u18, u19, u20, u21, u22, u23, u24, u25, u26, u27, u28, u29, u30, u31, u33, u34, u35, u36, u37, u38, u39, u40, u41, u42, u43, u44, u45, u46, u47, u48, u49, u50, u51, u52, u53, u54, u55, u56, u57, u58, u59, u60, u61, u62, u63, u65, u66, u67, u68, u69, u70, u71, u72, u73, u74, u75, u76, u77, u78, u79, u80, u81, u82, u83, u84, u85, u86, u87, u88, u89, u90, u91, u92, u93, u94, u95, u96, u97, u98, u99, u100, u101, u102, u103, u104, u105, u106, u107, u108, u109, u110, u111, u112, u113, u114, u115, u116, u117, u118, u119, u120, u121, u122, u123, u124, u125, u126, u127, i1, i2, i3, i4, i5, i6, i7,  i9, i10, i11, i12, i13, i14, i15, i17, i18, i19, i20, i21, i22, i23, i24, i25, i26, i27, i28, i29, i30, i31, i33, i34, i35, i36, i37, i38, i39, i40, i41, i42, i43, i44, i45, i46, i47, i48, i49, i50, i51, i52, i53, i54, i55, i56, i57, i58, i59, i60, i61, i62, i63, i65, i66, i67, i68, i69, i70, i71, i72, i73, i74, i75, i76, i77, i78, i79, i80, i81, i82, i83, i84, i85, i86, i87, i88, i89, i90, i91, i92, i93, i94, i95, i96, i97, i98, i99, i100, i101, i102, i103, i104, i105, i106, i107, i108, i109, i110, i111, i112, i113, i114, i115, i116, i117, i118, i119, i120, i121, i122, i123, i124, i125, i126, i127"
-
-edition = "2018"
-
-license = "Apache-2.0 OR MIT"
-readme = "README.md"
-repository = "https://github.com/AnyTimeTraveler/numX.git"
-
-
+name = "unin"
+description = "a (maintained) library providing integers of nonstandard widths for rust"
+version = "0.0.0"
+authors = ["superwhiskers <whiskerdev@protonmail.com>"]
+repository = "https://github.com/superwhiskers/unin"
+readme = "https://github.com/superwhiskers/unin/blob/master/readme.md"
 keywords = ["integer", "unaligned", "misaligned"]
 categories = ["embedded", "no-std", "data-structures"]
-
+edition = "2018"
+license = "Apache-2.0 OR MIT"
 
 [dependencies]
 cfg-if = "~0.1"
@@ -32,10 +26,3 @@ nightly = []
 std = []
 num = ["num-traits"]
 use_serde = ["serde"]
-
-[badges]
-travis-ci = { repository = "AnyTimeTraveler/numX", branch = "master" }
-is-it-maintained-issue-resolution = { repository = "AnyTimeTraveler/numX" }
-is-it-maintained-open-issues = { repository = "AnyTimeTraveler/numX" }
-codecov = { repository = "AnyTimeTraveler/numX", branch = "master", service = "github" }
-maintenance = { status = "passively-maintained" }
